@@ -168,8 +168,8 @@
             localStorage.setItem('report', JSON.stringify(result));
 
             // data preview
-            var output = document.getElementById('result');
-            output.innerHTML = JSON.stringify(result, null, 2);
+            //var output = document.getElementById('result');
+            //output.innerHTML = JSON.stringify(result, null, 2);
 
         };
         FR.readAsArrayBuffer(file);
@@ -203,7 +203,9 @@
 
         var arraySmEmpty = arraySm.filter(e => e.length);
 
-        _generaReport("Derry culo", arraySmEmpty, arrayRemoveUselessValue)
+        var rep = _generaReport("Derry culo", arraySmEmpty, arrayRemoveUselessValue)
+        var output = document.getElementById('result');
+        output.innerHTML = rep
     });
 </script>
 
