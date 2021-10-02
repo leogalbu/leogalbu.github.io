@@ -15,19 +15,19 @@
 <script>
     function _generaReport(nomeTemplate, arraySM, itemsRoot) {
         function removeSameColors(marr) {
-                var carr = [];
-                var rarr = [];
-                var j = -1;
+            var carr = [];
+            var rarr = [];
+            var j = -1;
 
-                for (var i = 0, l = marr.length; i < l; i++) {
-                    if (carr[marr[i][1]] !== true) {
-                        carr[marr[i][1]] = true;
-                        rarr[++j] = marr[i];
-                    }
+            for (var i = 0, l = marr.length; i < l; i++) {
+                if (carr[marr[i][1]] !== true) {
+                    carr[marr[i][1]] = true;
+                    rarr[++j] = marr[i];
                 }
-                
-                return rarr;
             }
+
+            return rarr;
+        }
 
         var arrayPulito = removeSameColors(arraySM)
         console.log(arrayPulito.length)
@@ -140,7 +140,7 @@
         return query;
     }
 
-    $("#numeroFoglio").on("change", function() {
+    $("#numeroFoglio").on("change", function () {
         var numeroFoglio = $(this).val()
         localStorage.setItem("foglio", numeroFoglio)
         //console.log(numeroFoglio)
@@ -191,14 +191,22 @@
         ]
         for (var i in arrayRemoveUselessValue) {
             var arr = []
-            if (arrayRemoveUselessValue[i][1].includes('.')) {
-                var valueSM = arrayRemoveUselessValue[i][1].substr(arrayRemoveUselessValue[i][1].indexOf('.') +
-                    1);
-                var SM = arrayRemoveUselessValue[i][1].substring(0, arrayRemoveUselessValue[i][1].indexOf("."));
-                arr.push(valueSM)
-                arr.push(SM)
-                arraySm.push(arr)
+
+            try {
+                if (arrayRemoveUselessValue[i][1].includes('.')) {
+                    var valueSM = arrayRemoveUselessValue[i][1].substr(arrayRemoveUselessValue[i][1].indexOf(
+                            '.') +
+                        1);
+                    var SM = arrayRemoveUselessValue[i][1].substring(0, arrayRemoveUselessValue[i][1].indexOf(
+                        "."));
+                    arr.push(valueSM)
+                    arr.push(SM)
+                    arraySm.push(arr)
+                }
+            } catch (e) {
+                console.log(e)
             }
+
         }
 
         var arraySmEmpty = arraySm.filter(e => e.length);
