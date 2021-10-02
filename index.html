@@ -1,0 +1,210 @@
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+    < <input type="file" id="input" accept=".xls,.xlsx,.ods">
+        <input id="btnSubmit" type="submit" value="Report" />
+        <input id="numeroFoglio" type="number" value="numeroFoglio" />
+        <pre id="result"></pre>
+</body>
+
+<script>
+    function _generaReport(nomeTemplate, arraySM, itemsRoot) {
+        function removeSameColors(marr) {
+                var carr = [];
+                var rarr = [];
+                var j = -1;
+
+                for (var i = 0, l = marr.length; i < l; i++) {
+                    if (carr[marr[i][1]] !== true) {
+                        carr[marr[i][1]] = true;
+                        rarr[++j] = marr[i];
+                    }
+                }
+                
+                return rarr;
+            }
+
+        var arrayPulito = removeSameColors(arraySM)
+        console.log(arrayPulito.length)
+        var query = "";
+        var smPresente = false;
+        query += "SELECT DISTINCT\n";
+        query += "I.SM_CD	as \"IdPratica\"\n";
+        query += ",MAC.MS_NOME as \"Stato processo\"\n";
+        query += ",MIC.STATE_NAME as \"Stato pratica\"\n";
+
+        const map = new Map();
+        for (var j in arraySM) {
+            //console.log('creo la mappa')
+            map.set(arraySM[j][1], {
+                indice: j,
+                valore: arraySM[j][1]
+            });
+        }
+        const mapIndiciFiltered = new Map();
+        for (var j in arrayPulito) {
+            console.log(arrayPulito[j][1])
+            mapIndiciFiltered.set(arrayPulito[j][1], {
+                indice: j
+            });
+        }
+        for (var i in itemsRoot) {
+            //console.log(itemsRoot[i][1]);
+            if (itemsRoot[i][1] !== null) {
+                if (itemsRoot[i][1].includes('.')) {
+                    smPresente = true;
+                    var valueSM = itemsRoot[i][1].substr(itemsRoot[i][1].indexOf('.') + 1);
+                    var SM = itemsRoot[i][1].substring(0, itemsRoot[i][1].indexOf("."));
+                    //console.log(map.get(SM).valore)
+                    //console.log(SM)
+                    if (SM == map.get(SM).valore) {
+                        switch (itemsRoot[i][2]) {
+                            case "radio":
+                                query +=
+                                    `,GET_VALUE(I.SM_ID, '${valueSM}', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1) AS "${itemsRoot[i][1]}"\n`;
+                                break;
+                            case "testo":
+                                query +=
+                                    `,GET_VALUE_VL(I.SM_ID, '${valueSM}', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1) AS "${itemsRoot[i][0]}"\n`;
+                                break;
+                            case "numero":
+                                query += ",SAFE_TO_NUMBER(GET_VALUE(I.SM_ID, '" + valueSM +
+                                    "', de1.dat_idx_l1, de1.dat_nm_l1)) AS \"" + (itemsRoot[i][1]) + "\"\n";
+                                break;
+                            case "data":
+                                query +=
+                                    ",TO_CHAR(TO_DATE('1970-01-01 00','yyyy-mm-dd hh24') + (GET_VALUE_VL(I.SM_ID, '" +
+                                    valueSM +
+                                    "', de1.dat_idx_l1, de1.dat_nm_l1) + 7200000)/1000/60/60/24 , 'DD/MM/YYYY') AS \"" +
+                                    (itemsRoot[i][1]) + "\"\n";
+                                break;
+                            default:
+                                query += '';
+                        }
+                    }
+                } else {
+                    switch (itemsRoot[i][2]) {
+                        case "radio":
+                            query += ",GET_VALUE(I.SM_ID, '" + itemsRoot[i][0] + "') AS \"" + (itemsRoot[i][1]) +
+                                "\"\n";
+                            break;
+                        case "testo":
+                            query += ",GET_VALUE_VL(I.SM_ID, '" + itemsRoot[i][0] + "') AS \"" + (itemsRoot[i][1]) +
+                                "\"\n";
+                            break;
+                        case "numero":
+                            query += ",SAFE_TO_NUMBER(GET_VALUE(I.SM_ID, '" + itemsRoot[i][0] + "')) AS \"" + (
+                                itemsRoot[i][1]) + "\"\n";
+                            break;
+                        case "data":
+                            query += ",TO_CHAR(TO_DATE('1970-01-01 00','yyyy-mm-dd hh24') + (GET_VALUE_VL(I.SM_ID, '" +
+                                itemsRoot[i][0] + "') + 7200000)/1000/60/60/24 , 'DD/MM/YYYY') AS \"" + (itemsRoot[i][
+                                    1
+                                ]) + "\"\n";
+                            break;
+                        default:
+                            query += '';
+                    }
+                }
+            }
+        }
+        query += "FROM AG_SM_INSTANCES I\n";
+        query += "LEFT JOIN AG_MICROSTATI MIC ON I.SM_TMPL_DN = MIC.STATE_TMPL_DN AND MIC.STATE_ID = I.CURRENT_STATE\n";
+        query += "LEFT JOIN AG_MACROSTATI MAC ON MAC.MS_ID = MIC.STATE_MACROSTATO\n";
+        if (smPresente) {
+            console.log(arrayPulito);
+            //console.log(smPresente)
+            for (var i in arrayPulito) {
+                var valueSM = arrayPulito[i][0]
+                var SM = arrayPulito[i][1]
+
+                query += `left join ag_sm_data_entries de${i} on de${i}.fk_id = i.sm_id\n`
+                query += `and de${i}.dat_tmpl_dn = i.sm_tmpl_dn\n`
+                query += `and de${i}.dat_hierarchic_pth = '${SM}.${valueSM}'\n`
+                if (i > 0) {
+                    query += `and de${i}.dat_tmpl_dn = de${i - 1}.dat_tmpl_dn\n`
+                    query += `and de${i}.dat_idx_l1 = de${i -1}.dat_idx_l1\n`
+                    query += `and de${i}.dat_nm_l1 = de${i - 1}.dat_nm_l1\n`
+                }
+
+            }
+        }
+        query += "WHERE I.SM_TMPL_DN = '" + nomeTemplate + "'\n";
+        query += "ORDER BY I.SM_CD ";
+        console.log(query)
+        return query;
+    }
+
+    $("#numeroFoglio").on("change", function() {
+        var numeroFoglio = $(this).val()
+        localStorage.setItem("foglio", numeroFoglio)
+        //console.log(numeroFoglio)
+    });
+
+    $("#input").on("change", function (e) {
+        var foglio = parseInt(localStorage.getItem('foglio'))
+        var file = e.target.files[0];
+        // input canceled, return
+        if (!file) return;
+
+        var FR = new FileReader();
+        FR.onload = function (e) {
+            var data = new Uint8Array(e.target.result);
+            var workbook = XLSX.read(data, {
+                type: 'array'
+            });
+            console.log(workbook.SheetNames[foglio])
+            var firstSheet = workbook.Sheets[workbook.SheetNames[foglio]];
+
+            // header: 1 instructs xlsx to create an 'array of arrays'
+            var result = XLSX.utils.sheet_to_json(firstSheet, {
+                header: 1
+            });
+            localStorage.setItem('report', JSON.stringify(result));
+
+            // data preview
+            var output = document.getElementById('result');
+            output.innerHTML = JSON.stringify(result, null, 2);
+
+        };
+        FR.readAsArrayBuffer(file);
+        //output.innerHTML = risultato
+    });
+
+    $(document).on('click', '#btnSubmit', function () {
+        var report = JSON.parse(localStorage.getItem('report'));
+        // Rimuoveo eventuali array vuoti dovuti a righe vuote nel report
+        var reportNoEmpty = report.filter(e => e.length);
+        var arrayRemoveUselessValue = reportNoEmpty.splice(5)
+        console.log(arrayRemoveUselessValue)
+        // Rimuovo stato, macrostaato, id...roba inutile
+        //console.log(arrayRemoveUselessValue)
+        var nuovoArray = new Array(arrayRemoveUselessValue)
+
+        var arraySm = [
+            []
+        ]
+        for (var i in arrayRemoveUselessValue) {
+            var arr = []
+            if (arrayRemoveUselessValue[i][1].includes('.')) {
+                var valueSM = arrayRemoveUselessValue[i][1].substr(arrayRemoveUselessValue[i][1].indexOf('.') +
+                    1);
+                var SM = arrayRemoveUselessValue[i][1].substring(0, arrayRemoveUselessValue[i][1].indexOf("."));
+                arr.push(valueSM)
+                arr.push(SM)
+                arraySm.push(arr)
+            }
+        }
+
+        var arraySmEmpty = arraySm.filter(e => e.length);
+
+        _generaReport("Derry culo", arraySmEmpty, arrayRemoveUselessValue)
+    });
+</script>
+
+</html>
