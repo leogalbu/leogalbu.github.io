@@ -1,6 +1,6 @@
 # leogalbu.github.io
 
-Genera un report a partire dal file excell
-Per ora viene visualizzato in console
-TODO
-Devo aggiugnere un campo per dire il nome del template
+Genera un report a partire dal file excell<br/>
+Per ora viene visualizzato in console<br/>
+# TODO<br/>
+Devo aggiugnere un campo per dire il nome del template<br/>
