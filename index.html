@@ -56,60 +56,66 @@
         for (var i in itemsRoot) {
             //console.log(itemsRoot[i][1]);
             if (itemsRoot[i][1] !== null) {
-                if (itemsRoot[i][1].includes('.')) {
-                    smPresente = true;
-                    var valueSM = itemsRoot[i][1].substr(itemsRoot[i][1].indexOf('.') + 1);
-                    var SM = itemsRoot[i][1].substring(0, itemsRoot[i][1].indexOf("."));
-                    //console.log(map.get(SM).valore)
-                    //console.log(SM)
-                    if (SM == map.get(SM).valore) {
+                try {
+                    if (itemsRoot[i][1].includes('.')) {
+                        smPresente = true;
+                        var valueSM = itemsRoot[i][1].substr(itemsRoot[i][1].indexOf('.') + 1);
+                        var SM = itemsRoot[i][1].substring(0, itemsRoot[i][1].indexOf("."));
+                        //console.log(map.get(SM).valore)
+                        //console.log(SM)
+                        if (SM == map.get(SM).valore) {
+                            switch (itemsRoot[i][2]) {
+                                case "radio":
+                                    query +=
+                                        `,GET_VALUE(I.SM_ID, '${valueSM}', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1) AS "${itemsRoot[i][1]}"\n`;
+                                    break;
+                                case "testo":
+                                    query +=
+                                        `,GET_VALUE_VL(I.SM_ID, '${valueSM}', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1) AS "${itemsRoot[i][0]}"\n`;
+                                    break;
+                                case "numero":
+                                    query += ",SAFE_TO_NUMBER(GET_VALUE(I.SM_ID, '" + valueSM +
+                                        "', de1.dat_idx_l1, de1.dat_nm_l1)) AS \"" + (itemsRoot[i][1]) + "\"\n";
+                                    break;
+                                case "data":
+                                    query +=
+                                        ",TO_CHAR(TO_DATE('1970-01-01 00','yyyy-mm-dd hh24') + (GET_VALUE_VL(I.SM_ID, '" +
+                                        valueSM +
+                                        "', de1.dat_idx_l1, de1.dat_nm_l1) + 7200000)/1000/60/60/24 , 'DD/MM/YYYY') AS \"" +
+                                        (itemsRoot[i][1]) + "\"\n";
+                                    break;
+                                default:
+                                    query += '';
+                            }
+                        }
+                    } else {
                         switch (itemsRoot[i][2]) {
                             case "radio":
-                                query +=
-                                    `,GET_VALUE(I.SM_ID, '${valueSM}', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1) AS "${itemsRoot[i][1]}"\n`;
+                                query += ",GET_VALUE(I.SM_ID, '" + itemsRoot[i][0] + "') AS \"" + (itemsRoot[i][1]) +
+                                    "\"\n";
                                 break;
                             case "testo":
-                                query +=
-                                    `,GET_VALUE_VL(I.SM_ID, '${valueSM}', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1) AS "${itemsRoot[i][0]}"\n`;
+                                query += ",GET_VALUE_VL(I.SM_ID, '" + itemsRoot[i][0] + "') AS \"" + (itemsRoot[i][1]) +
+                                    "\"\n";
                                 break;
                             case "numero":
-                                query += ",SAFE_TO_NUMBER(GET_VALUE(I.SM_ID, '" + valueSM +
-                                    "', de1.dat_idx_l1, de1.dat_nm_l1)) AS \"" + (itemsRoot[i][1]) + "\"\n";
+                                query += ",SAFE_TO_NUMBER(GET_VALUE(I.SM_ID, '" + itemsRoot[i][0] + "')) AS \"" + (
+                                    itemsRoot[i][1]) + "\"\n";
                                 break;
                             case "data":
                                 query +=
                                     ",TO_CHAR(TO_DATE('1970-01-01 00','yyyy-mm-dd hh24') + (GET_VALUE_VL(I.SM_ID, '" +
-                                    valueSM +
-                                    "', de1.dat_idx_l1, de1.dat_nm_l1) + 7200000)/1000/60/60/24 , 'DD/MM/YYYY') AS \"" +
-                                    (itemsRoot[i][1]) + "\"\n";
+                                    itemsRoot[i][0] + "') + 7200000)/1000/60/60/24 , 'DD/MM/YYYY') AS \"" + (itemsRoot[
+                                        i][
+                                        1
+                                    ]) + "\"\n";
                                 break;
                             default:
                                 query += '';
                         }
                     }
-                } else {
-                    switch (itemsRoot[i][2]) {
-                        case "radio":
-                            query += ",GET_VALUE(I.SM_ID, '" + itemsRoot[i][0] + "') AS \"" + (itemsRoot[i][1]) +
-                                "\"\n";
-                            break;
-                        case "testo":
-                            query += ",GET_VALUE_VL(I.SM_ID, '" + itemsRoot[i][0] + "') AS \"" + (itemsRoot[i][1]) +
-                                "\"\n";
-                            break;
-                        case "numero":
-                            query += ",SAFE_TO_NUMBER(GET_VALUE(I.SM_ID, '" + itemsRoot[i][0] + "')) AS \"" + (
-                                itemsRoot[i][1]) + "\"\n";
-                            break;
-                        case "data":
-                            query += ",TO_CHAR(TO_DATE('1970-01-01 00','yyyy-mm-dd hh24') + (GET_VALUE_VL(I.SM_ID, '" +
-                                itemsRoot[i][0] + "') + 7200000)/1000/60/60/24 , 'DD/MM/YYYY') AS \"" + (itemsRoot[i][
-                                    1
-                                ]) + "\"\n";
-                            break;
-                        default:
-                            query += '';
-                    }
+                } catch (e) {
+
                 }
             }
         }
