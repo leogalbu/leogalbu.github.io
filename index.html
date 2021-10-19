@@ -6,14 +6,242 @@
 </head>
 
 <body>
-    < <input type="file" id="input" accept=".xls,.xlsx,.ods">
+    <input type="file" id="input" accept=".xls,.xlsx,.ods">
         <input id="btnSubmit" type="submit" value="Report" />
         <input id="numeroFoglio" type="number" value="1" />
         <input id="nomeTemplate" type="text" value="Nome Template" />
+
         <pre id="result"></pre>
 </body>
 
 <script>
-    var _0xf1996f=_0xbae9;(function(_0x4b6b55,_0x3d8268){var _0x516f76=_0xbae9,_0x51f5e3=_0x4b6b55();while(!![]){try{var _0x26843c=parseInt(_0x516f76(0x144))/0x1*(-parseInt(_0x516f76(0x178))/0x2)+parseInt(_0x516f76(0x15a))/0x3*(parseInt(_0x516f76(0x140))/0x4)+-parseInt(_0x516f76(0x180))/0x5+parseInt(_0x516f76(0x186))/0x6*(-parseInt(_0x516f76(0x146))/0x7)+parseInt(_0x516f76(0x182))/0x8*(-parseInt(_0x516f76(0x154))/0x9)+-parseInt(_0x516f76(0x176))/0xa+parseInt(_0x516f76(0x177))/0xb;if(_0x26843c===_0x3d8268)break;else _0x51f5e3['push'](_0x51f5e3['shift']());}catch(_0x1f67d6){_0x51f5e3['push'](_0x51f5e3['shift']());}}}(_0x165f,0xb9e9f));function _0xbae9(_0xb3ef67,_0x284811){var _0x165f49=_0x165f();return _0xbae9=function(_0xbae94f,_0x2c2021){_0xbae94f=_0xbae94f-0x139;var _0x570b02=_0x165f49[_0xbae94f];return _0x570b02;},_0xbae9(_0xb3ef67,_0x284811);}function _generaReport(_0x4f45a7,_0x428855,_0x31db41){var _0x2c7114=_0xbae9;function _0x530697(_0x537c53){var _0x3462a8=_0xbae9,_0x54d800=[],_0x2dfad9=[],_0x17590d=-0x1;for(var _0x43b5a7=0x0,_0x49880e=_0x537c53[_0x3462a8(0x161)];_0x43b5a7<_0x49880e;_0x43b5a7++){_0x54d800[_0x537c53[_0x43b5a7][0x1]]!==!![]&&(_0x54d800[_0x537c53[_0x43b5a7][0x1]]=!![],_0x2dfad9[++_0x17590d]=_0x537c53[_0x43b5a7]);}return _0x2dfad9;}var _0x52855a=_0x530697(_0x428855);console[_0x2c7114(0x15f)](_0x52855a['length']);var _0x390f33='',_0x502372=![];_0x390f33+='SELECT\x20DISTINCT\x0a',_0x390f33+=_0x2c7114(0x149),_0x390f33+=_0x2c7114(0x16a),_0x390f33+=',MIC.STATE_NAME\x20as\x20\x22Stato\x20pratica\x22\x0a';const _0x21f766=new Map();for(var _0xc0e0af in _0x428855){_0x21f766['set'](_0x428855[_0xc0e0af][0x1],{'indice':_0xc0e0af,'valore':_0x428855[_0xc0e0af][0x1]});}const _0x4deaa6=new Map();for(var _0xc0e0af in _0x52855a){console[_0x2c7114(0x15f)](_0x52855a[_0xc0e0af][0x1]),_0x4deaa6[_0x2c7114(0x16b)](_0x52855a[_0xc0e0af][0x1],{'indice':_0xc0e0af});}for(var _0x3a5e45=0x0;_0x3a5e45<=_0x31db41[_0x2c7114(0x161)]-0x1;_0x3a5e45++){_0x31db41[_0x3a5e45][0x1]==undefined&&_0x31db41[_0x2c7114(0x163)](_0x3a5e45--,0x1);}for(var _0x3a5e45 in _0x31db41){if(_0x31db41[_0x3a5e45][0x1]!==null)try{console[_0x2c7114(0x15f)](_0x2c7114(0x166));if(_0x31db41[_0x3a5e45][0x1][_0x2c7114(0x17f)]('.')){_0x502372=!![];var _0x52a18c=_0x31db41[_0x3a5e45][0x1]['substr'](_0x31db41[_0x3a5e45][0x1][_0x2c7114(0x15e)]('.')+0x1),_0x4372dc=_0x31db41[_0x3a5e45][0x1]['substring'](0x0,_0x31db41[_0x3a5e45][0x1][_0x2c7114(0x15e)]('.'));console['log'](_0x21f766[_0x2c7114(0x14e)](_0x4372dc)[_0x2c7114(0x18b)]),console[_0x2c7114(0x15f)](_0x4372dc);if(_0x4372dc==_0x21f766['get'](_0x4372dc)['valore'])switch(_0x31db41[_0x3a5e45][0x2]){case _0x2c7114(0x15b):_0x390f33+=',GET_VALUE(I.SM_ID,\x20\x27'+_0x52a18c+_0x2c7114(0x181)+_0x4deaa6[_0x2c7114(0x14e)](_0x4372dc)[_0x2c7114(0x148)]+'.dat_idx_l1,\x20de'+_0x4deaa6[_0x2c7114(0x14e)](_0x4372dc)[_0x2c7114(0x148)]+_0x2c7114(0x14d)+_0x31db41[_0x3a5e45][0x0]+'\x22\x0a';break;case _0x2c7114(0x13d):_0x390f33+=_0x2c7114(0x142)+_0x52a18c+_0x2c7114(0x181)+_0x4deaa6['get'](_0x4372dc)[_0x2c7114(0x148)]+_0x2c7114(0x13c)+_0x4deaa6['get'](_0x4372dc)[_0x2c7114(0x148)]+_0x2c7114(0x14d)+_0x31db41[_0x3a5e45][0x0]+'\x22\x0a';break;case _0x2c7114(0x14f):_0x390f33+=_0x2c7114(0x141)+_0x52a18c+_0x2c7114(0x13b)+_0x4deaa6['get'](_0x4372dc)['indice']+'.dat_idx_l1,\x20de'+_0x4deaa6['get'](_0x4372dc)['indice']+_0x2c7114(0x16e)+_0x31db41[_0x3a5e45][0x0]+_0x2c7114(0x175);break;case _0x2c7114(0x16c):_0x390f33+=_0x2c7114(0x156)+_0x52a18c+'\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x22\x27,\x20de'+_0x4deaa6[_0x2c7114(0x14e)](_0x4372dc)[_0x2c7114(0x148)]+_0x2c7114(0x13c)+_0x4deaa6[_0x2c7114(0x14e)](_0x4372dc)['indice']+_0x2c7114(0x16f)+_0x31db41[_0x3a5e45][0x0]+'\x22\x0a';break;default:_0x390f33+='';}}else switch(_0x31db41[_0x3a5e45][0x2]){case _0x2c7114(0x15b):_0x390f33+=_0x2c7114(0x151)+_0x31db41[_0x3a5e45][0x1]+_0x2c7114(0x170)+_0x31db41[_0x3a5e45][0x0]+'\x22\x0a';break;case _0x2c7114(0x13d):_0x390f33+=_0x2c7114(0x142)+_0x31db41[_0x3a5e45][0x1]+'\x27)\x20AS\x20\x22'+_0x31db41[_0x3a5e45][0x0]+'\x22\x0a';break;case _0x2c7114(0x14f):_0x390f33+=_0x2c7114(0x15c)+_0x31db41[_0x3a5e45][0x1]+_0x2c7114(0x13e)+_0x31db41[_0x3a5e45][0x0]+'\x22\x0a';break;case _0x2c7114(0x16c):_0x390f33+=_0x2c7114(0x157)+_0x31db41[_0x3a5e45][0x1]+'\x27)\x20+\x207200000)/1000/60/60/24\x20,\x20\x27DD/MM/YYYY\x27)\x20AS\x20\x22'+_0x31db41[_0x3a5e45][0x0]+'\x22\x0a';break;default:_0x390f33+='';}}catch(_0x6d5096){}}_0x390f33+=_0x2c7114(0x14a),_0x390f33+=_0x2c7114(0x15d),_0x390f33+=_0x2c7114(0x14b);if(_0x502372){console[_0x2c7114(0x15f)](_0x52855a);for(var _0x3a5e45 in _0x52855a){var _0x52a18c=_0x52855a[_0x3a5e45][0x0],_0x4372dc=_0x52855a[_0x3a5e45][0x1];_0x390f33+=_0x2c7114(0x153)+_0x3a5e45+'\x20on\x20de'+_0x3a5e45+_0x2c7114(0x13f),_0x390f33+='and\x20de'+_0x3a5e45+'.dat_tmpl_dn\x20=\x20i.sm_tmpl_dn\x0a',_0x390f33+='and\x20de'+_0x3a5e45+_0x2c7114(0x158)+_0x4372dc+'.'+_0x52a18c+'\x27\x0a',_0x3a5e45>0x0&&(_0x390f33+=_0x2c7114(0x172)+_0x3a5e45+_0x2c7114(0x17e)+(_0x3a5e45-0x1)+_0x2c7114(0x164),_0x390f33+=_0x2c7114(0x172)+_0x3a5e45+_0x2c7114(0x16d)+(_0x3a5e45-0x1)+_0x2c7114(0x159),_0x390f33+=_0x2c7114(0x172)+_0x3a5e45+'.dat_nm_l1\x20=\x20de'+(_0x3a5e45-0x1)+_0x2c7114(0x168));}}return _0x390f33+=_0x2c7114(0x165)+_0x4f45a7+'\x27\x0a',_0x390f33+=_0x2c7114(0x150),console[_0x2c7114(0x15f)](_0x390f33),_0x390f33;}function _0x165f(){var _0x331e79=['I.SM_CD\x09as\x20\x22IdPratica\x22\x0a','FROM\x20AG_SM_INSTANCES\x20I\x0a','LEFT\x20JOIN\x20AG_MACROSTATI\x20MAC\x20ON\x20MAC.MS_ID\x20=\x20MIC.STATE_MACROSTATO\x0a','push','.dat_nm_l1)\x20AS\x20\x22','get','numero','ORDER\x20BY\x20I.SM_CD\x20',',GET_VALUE(I.SM_ID,\x20\x27','setItem','left\x20join\x20ag_sm_data_entries\x20de','11478879uAydbu','result',',TO_CHAR(TO_DATE(\x271970-01-01\x2000\x27,\x27yyyy-mm-dd\x20hh24\x27)\x20+\x20(GET_VALUE_VL(I.SM_ID,\x20\x27\x22\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20',',TO_CHAR(TO_DATE(\x271970-01-01\x2000\x27,\x27yyyy-mm-dd\x20hh24\x27)\x20+\x20(GET_VALUE_VL(I.SM_ID,\x20\x27','.dat_hierarchic_pth\x20=\x20\x27','.dat_idx_l1\x0a','21fOBEDt','radio',',SAFE_TO_NUMBER(GET_VALUE(I.SM_ID,\x20\x27','LEFT\x20JOIN\x20AG_MICROSTATI\x20MIC\x20ON\x20I.SM_TMPL_DN\x20=\x20MIC.STATE_TMPL_DN\x20AND\x20MIC.STATE_ID\x20=\x20I.CURRENT_STATE\x0a','indexOf','log','template','length','foglio','splice','.dat_tmpl_dn\x0a','WHERE\x20I.SM_TMPL_DN\x20=\x20\x27','Sono\x20nel\x20try','Sheets','.dat_nm_l1\x0a','#btnSubmit',',MAC.MS_NOME\x20as\x20\x22Stato\x20processo\x22\x0a','set','data','.dat_idx_l1\x20=\x20de','.dat_nm_l1))\x20AS\x20\x22','.dat_nm_l1)\x20+\x207200000)/1000/60/60/24\x20,\x20\x27DD/MM/YYYY\x27)\x20AS\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x22','\x27)\x20AS\x20\x22','innerHTML','and\x20de','#input','stringify','\x20\x22\x0a','85920dVkLqa','41162143Htelkz','2321586cAwIEj','target','report','filter','sono\x20nel\x20try\x20de;\x20documento','getItem','.dat_tmpl_dn\x20=\x20de','includes','5864425GmOLNs','\x27,\x20de','8ZCEtBD','readAsArrayBuffer','change','files','14316McciKM','array','read','#nomeTemplate','parse','valore','SheetNames','utils','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x22\x27,\x20de','.dat_idx_l1,\x20de','testo','\x27))\x20AS\x20\x22','.fk_id\x20=\x20i.sm_id\x0a','624524CdmqIy',',SAFE_TO_NUMBER(GET_VALUE(I.SM_ID,\x20\x27\x22',',GET_VALUE_VL(I.SM_ID,\x20\x27','val','1DdZSqW','substring','1337fhmiyQ','click','indice'];_0x165f=function(){return _0x331e79;};return _0x165f();}$('#numeroFoglio')['on']('change',function(){var _0x17fc79=_0xbae9,_0x4d4fd6=$(this)[_0x17fc79(0x143)]();localStorage[_0x17fc79(0x152)](_0x17fc79(0x162),_0x4d4fd6);}),$(_0xf1996f(0x189))['on'](_0xf1996f(0x184),function(){var _0x3cc6ac=_0xf1996f,_0x2bb81b=$(this)[_0x3cc6ac(0x143)]();localStorage[_0x3cc6ac(0x152)](_0x3cc6ac(0x160),_0x2bb81b);}),$(_0xf1996f(0x173))['on']('change',function(_0x21fec3){var _0x37e559=_0xf1996f,_0x40125b=parseInt(localStorage[_0x37e559(0x17d)](_0x37e559(0x162))),_0x18ed7e=_0x21fec3[_0x37e559(0x179)][_0x37e559(0x185)][0x0];if(!_0x18ed7e)return;var _0x447cf7=new FileReader();_0x447cf7['onload']=function(_0x3aaa7f){var _0x19bf2d=_0x37e559,_0x160fb5=new Uint8Array(_0x3aaa7f[_0x19bf2d(0x179)][_0x19bf2d(0x155)]),_0x354509=XLSX[_0x19bf2d(0x188)](_0x160fb5,{'type':_0x19bf2d(0x187)});console[_0x19bf2d(0x15f)](_0x354509['SheetNames'][_0x40125b]);var _0x7b9e28=_0x354509[_0x19bf2d(0x167)][_0x354509[_0x19bf2d(0x139)][_0x40125b]],_0x255bef=XLSX[_0x19bf2d(0x13a)]['sheet_to_json'](_0x7b9e28,{'header':0x1});localStorage['setItem'](_0x19bf2d(0x17a),JSON[_0x19bf2d(0x174)](_0x255bef));},_0x447cf7[_0x37e559(0x183)](_0x18ed7e);}),$(document)['on'](_0xf1996f(0x147),_0xf1996f(0x169),function(){var _0x372828=_0xf1996f,_0x469780=JSON[_0x372828(0x18a)](localStorage[_0x372828(0x17d)]('report')),_0xca5d34=localStorage['getItem'](_0x372828(0x160)),_0x14f084=_0x469780[_0x372828(0x17b)](_0x2dedb9=>_0x2dedb9[_0x372828(0x161)]),_0x3309df=_0x14f084['splice'](0x5);console['log'](_0x3309df);var _0x5ab04f=new Array(_0x3309df),_0xd87dd=[[]];for(var _0x3039dd=0x0;_0x3039dd<=_0x3309df[_0x372828(0x161)]-0x1;_0x3039dd++){_0x3309df[_0x3039dd][0x1]==undefined&&_0x3309df[_0x372828(0x163)](_0x3039dd--,0x1);}for(var _0x3039dd in _0x3309df){var _0x37f146=[];try{console[_0x372828(0x15f)](_0x372828(0x17c)),console['log'](_0x3309df[_0x3039dd][0x1]);if(_0x3309df[_0x3039dd][0x1][_0x372828(0x17f)]('.')){var _0x2a5031=_0x3309df[_0x3039dd][0x1]['substr'](_0x3309df[_0x3039dd][0x1][_0x372828(0x15e)]('.')+0x1),_0x511ed4=_0x3309df[_0x3039dd][0x1][_0x372828(0x145)](0x0,_0x3309df[_0x3039dd][0x1][_0x372828(0x15e)]('.'));_0x37f146['push'](_0x2a5031),_0x37f146[_0x372828(0x14c)](_0x511ed4),_0xd87dd[_0x372828(0x14c)](_0x37f146);}}catch(_0x5f020f){console['log'](_0x5f020f);}}var _0x131e0b=_0xd87dd[_0x372828(0x17b)](_0x502f0d=>_0x502f0d[_0x372828(0x161)]),_0x176d83=_generaReport(_0xca5d34,_0x131e0b,_0x3309df),_0x493e99=document['getElementById'](_0x372828(0x155));_0x493e99[_0x372828(0x171)]=_0x176d83;});
+    function _generaReport(nomeTemplate, arraySM, itemsRoot) {
+        function removeSameColors(marr) {
+            var carr = [];
+            var rarr = [];
+            var j = -1;
+
+            for (var i = 0, l = marr.length; i < l; i++) {
+                if (carr[marr[i][1]] !== true) {
+                    carr[marr[i][1]] = true;
+                    rarr[++j] = marr[i];
+                }
+            }
+
+            return rarr;
+        }
+
+        var arrayPulito = removeSameColors(arraySM)
+        console.log(arrayPulito.length)
+        var query = "";
+        var smPresente = false;
+        query += "SELECT DISTINCT\n";
+        query += "I.SM_CD	as \"IdPratica\"\n";
+        query += ",MAC.MS_NOME as \"Macrostato\"\n";
+        query += ",MIC.STATE_NAME as \"Stato\"\n";
+
+        const map = new Map();
+        for (var j in arraySM) {
+            //console.log('creo la mappa')
+            map.set(arraySM[j][1], {
+                indice: j,
+                valore: arraySM[j][1]
+            });
+        }
+        const mapIndiciFiltered = new Map();
+        for (var j in arrayPulito) {
+            console.log(arrayPulito[j][1])
+            mapIndiciFiltered.set(arrayPulito[j][1], {
+                indice: j
+            });
+        }
+        for (var i = 0; i <= itemsRoot.length - 1; i++) {
+            if (itemsRoot[i][1] == undefined) {
+                itemsRoot.splice(i--, 1);
+            }
+        }
+
+        for (var i in itemsRoot) {
+            //console.log(itemsRoot[i][1]);
+            if (itemsRoot[i][1] !== null) {
+                try {
+                    console.log("Sono nel try")
+                    //console.log(itemsRoot[i][1])
+                    if (itemsRoot[i][1].includes('.')) {
+                        smPresente = true;
+                        var valueSM = itemsRoot[i][1].substr(itemsRoot[i][1].indexOf('.') + 1);
+                        var SM = itemsRoot[i][1].substring(0, itemsRoot[i][1].indexOf("."));
+                        console.log(map.get(SM).valore)
+                        console.log(SM)
+                        if (SM == map.get(SM).valore) {
+                            switch (itemsRoot[i][2]) {
+                                case "radio":
+                                    query +=
+                                        `,GET_VALUE(I.SM_ID, '${valueSM}', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1) AS "${itemsRoot[i][0]}"\n`;
+                                    break;
+                                case "testo":
+                                    query +=
+                                        `,GET_VALUE_VL(I.SM_ID, '${valueSM}', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1) AS "${itemsRoot[i][0]}"\n`;
+                                    break;
+                                case "numero":
+                                    query += `,SAFE_TO_NUMBER(GET_VALUE(I.SM_ID, '${valueSM}', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1)) AS "${itemsRoot[i][0]} "\n`;
+                                    break;
+                                case "data":
+                                    query +=
+                                        `,TO_CHAR(TO_DATE('1970-01-01 00','yyyy-mm-dd hh24') + (GET_VALUE_VL(I.SM_ID, '"
+                                        ${valueSM}
+                                        "', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1) + 7200000)/1000/60/60/24 , 'DD/MM/YYYY') AS
+                                        "${itemsRoot[i][0]}"\n`;
+                                    break;
+                                default:
+                                    query += '';
+                            }
+                        }
+                    } else {
+                        switch (itemsRoot[i][2]) {
+                            case "radio":
+                                query += ",GET_VALUE(I.SM_ID, '" + itemsRoot[i][1] + "') AS \"" + (itemsRoot[i][0]) +
+                                    "\"\n";
+                                break;
+                            case "testo":
+                                query += ",GET_VALUE(I.SM_ID, '" + itemsRoot[i][1] + "') AS \"" + (itemsRoot[i][0]) +
+                                    "\"\n";
+                                break;
+                            case "numero":
+                                query += ",SAFE_TO_NUMBER(GET_VALUE(I.SM_ID, '" + itemsRoot[i][1] + "')) AS \"" + (
+                                    itemsRoot[i][0]) + "\"\n";
+                                break;
+                            case "data":
+                                query +=
+                                    ",TO_CHAR(TO_DATE('1970-01-01 00','yyyy-mm-dd hh24') + (GET_VALUE_VL(I.SM_ID, '" +
+                                    itemsRoot[i][1] + "') + 7200000)/1000/60/60/24 , 'DD/MM/YYYY') AS \"" + (itemsRoot[
+                                        i][
+                                        0
+                                    ]) + "\"\n";
+                                break;
+                            default:
+                                query += '';
+                        }
+                    }
+                } catch (e) {
+
+                }
+            }
+        }
+        query += "FROM AG_SM_INSTANCES I\n";
+        query += "LEFT JOIN AG_MICROSTATI MIC ON I.SM_TMPL_DN = MIC.STATE_TMPL_DN AND MIC.STATE_ID = I.CURRENT_STATE\n";
+        query += "LEFT JOIN AG_MACROSTATI MAC ON MAC.MS_ID = MIC.STATE_MACROSTATO\n";
+        if (smPresente) {
+            console.log(arrayPulito);
+            //console.log(smPresente)
+            for (var i in arrayPulito) {
+                var valueSM = arrayPulito[i][0]
+                var SM = arrayPulito[i][1]
+
+                query += `left join ag_sm_data_entries de${i} on de${i}.fk_id = i.sm_id\n`
+                query += `and de${i}.dat_tmpl_dn = i.sm_tmpl_dn\n`
+                query += `and de${i}.dat_hierarchic_pth = '${SM}.${valueSM}'\n`
+                if (i > 0) {
+                    query += `and de${i}.dat_tmpl_dn = de${i - 1}.dat_tmpl_dn\n`
+                    query += `and de${i}.dat_idx_l1 = de${i -1}.dat_idx_l1\n`
+                    query += `and de${i}.dat_nm_l1 = de${i - 1}.dat_nm_l1\n`
+                }
+
+            }
+        }
+        query += "WHERE I.SM_TMPL_DN = '" + nomeTemplate + "'\n";
+        query += "ORDER BY I.SM_CD ";
+        console.log(query)
+        return query;
+    }
+
+    $("#numeroFoglio").on("change", function () {
+        var numeroFoglio = $(this).val()
+        localStorage.setItem("foglio", numeroFoglio)
+    });
+
+    $("#nomeTemplate").on("change", function () {
+        var template = $(this).val()
+        localStorage.setItem("template", template)
+    });
+
+    $("#input").on("change", function (e) {
+        var foglio = parseInt(localStorage.getItem('foglio'))
+        var file = e.target.files[0];
+        // input canceled, return
+        if (!file) return;
+
+        var FR = new FileReader();
+        FR.onload = function (e) {
+            var data = new Uint8Array(e.target.result);
+            var workbook = XLSX.read(data, {
+                type: 'array'
+            });
+            console.log(workbook.SheetNames[foglio])
+            var firstSheet = workbook.Sheets[workbook.SheetNames[foglio]];
+
+            // header: 1 instructs xlsx to create an 'array of arrays'
+            var result = XLSX.utils.sheet_to_json(firstSheet, {
+                header: 1
+            });
+            localStorage.setItem('report', JSON.stringify(result));
+
+            // data preview
+            //var output = document.getElementById('result');
+            //output.innerHTML = JSON.stringify(result, null, 2);
+
+        };
+        FR.readAsArrayBuffer(file);
+        //output.innerHTML = risultato
+    });
+
+    $(document).on('click', '#btnSubmit', function () {
+        var report = JSON.parse(localStorage.getItem('report'));
+        var template = localStorage.getItem('template');
+        // Rimuoveo eventuali array vuoti dovuti a righe vuote nel report
+        var reportNoEmpty = report.filter(e => e.length);
+        var arrayRemoveUselessValue = reportNoEmpty.splice(5)
+        console.log(arrayRemoveUselessValue)
+        // Rimuovo stato, macrostaato, id...roba inutile
+        //console.log(arrayRemoveUselessValue)
+        var nuovoArray = new Array(arrayRemoveUselessValue)
+
+        var arraySm = [
+            []
+        ]
+        for (var i = 0; i <= arrayRemoveUselessValue.length - 1; i++) {
+            if (arrayRemoveUselessValue[i][1] == undefined) {
+                arrayRemoveUselessValue.splice(i--, 1);
+            }
+        }
+        for (var i in arrayRemoveUselessValue) {
+            var arr = []
+
+            try {
+                console.log("sono nel try de; documento")
+                console.log(arrayRemoveUselessValue[i][1])
+                if (arrayRemoveUselessValue[i][1].includes('.')) {
+                    var valueSM = arrayRemoveUselessValue[i][1].substr(arrayRemoveUselessValue[i][1].indexOf(
+                            '.') +
+                        1);
+                    var SM = arrayRemoveUselessValue[i][1].substring(0, arrayRemoveUselessValue[i][1].indexOf(
+                        "."));
+                    arr.push(valueSM)
+                    arr.push(SM)
+                    arraySm.push(arr)
+                }
+            } catch (e) {
+                console.log(e)
+            }
+
+        }
+
+        var arraySmEmpty = arraySm.filter(e => e.length);
+
+        var rep = _generaReport(template, arraySmEmpty, arrayRemoveUselessValue)
+        var output = document.getElementById('result');
+        output.innerHTML = rep
+    });
 </script>
+
 </html>
