@@ -81,17 +81,13 @@
                                     break;
                                 case "testo":
                                     query +=
-                                        `,GET_VALUE_VL(I.SM_ID, '${valueSM}', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1) AS "${itemsRoot[i][0]}"\n`;
+                                        `,GET_VALUE(I.SM_ID, '${valueSM}', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1) AS "${itemsRoot[i][0]}"\n`;
                                     break;
                                 case "numero":
                                     query += `,SAFE_TO_NUMBER(GET_VALUE(I.SM_ID, '${valueSM}', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1)) AS "${itemsRoot[i][0]} "\n`;
                                     break;
                                 case "data":
-                                    query +=
-                                        `,TO_CHAR(TO_DATE('1970-01-01 00','yyyy-mm-dd hh24') + (GET_VALUE_VL(I.SM_ID, '"
-                                        ${valueSM}
-                                        "', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1) + 7200000)/1000/60/60/24 , 'DD/MM/YYYY') AS
-                                        "${itemsRoot[i][0]}"\n`;
+                                    query += `,TO_CHAR(TO_DATE('1970-01-01 00','yyyy-mm-dd hh24') + (GET_VALUE(I.SM_ID, '${valueSM}', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1) + 7200000)/1000/60/60/24 , 'DD/MM/YYYY') AS "${itemsRoot[i][0]}"\n`;
                                     break;
                                 default:
                                     query += '';
