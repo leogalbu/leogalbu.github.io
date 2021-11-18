@@ -7,16 +7,23 @@
 
 <body>
     <input type="file" id="input" accept=".xls,.xlsx,.ods">
-        <input id="btnSubmit" type="submit" value="Report" />
-        <input id="numeroFoglio" type="number" value="1" />
-        <input id="nomeTemplate" type="text" value="Nome Template" />
+    <input id="btnSubmit" type="submit" value="Report" />
+    <input id="numeroFoglio" type="number" value="1" />
+    <input id="nomeTemplate" type="text" value="Nome Template" />
 
-        <pre id="result"></pre>
+    <pre id="result"></pre>
 </body>
 
 <script>
     function _generaReport(nomeTemplate, arraySM, itemsRoot) {
-        function removeSameColors(marr) {
+        var naturaRoot = false;
+        var provinciaRoot = false;
+        var comuneRoot = false;
+        var comuneSm = false;
+        var provinciaSm = false;
+        var naturaSm = false;
+
+        function removeSame(marr) {
             var carr = [];
             var rarr = [];
             var j = -1;
@@ -31,8 +38,8 @@
             return rarr;
         }
 
-        var arrayPulito = removeSameColors(arraySM)
-        console.log(arrayPulito.length)
+        var arrayPulito = removeSame(arraySM)
+        //console.log(arrayPulito.length)
         var query = "";
         var smPresente = false;
         query += "SELECT DISTINCT\n";
@@ -65,14 +72,14 @@
             //console.log(itemsRoot[i][1]);
             if (itemsRoot[i][1] !== null) {
                 try {
-                    console.log("Sono nel try")
+                    //console.log("Sono nel try")
                     //console.log(itemsRoot[i][1])
                     if (itemsRoot[i][1].includes('.')) {
                         smPresente = true;
                         var valueSM = itemsRoot[i][1].substr(itemsRoot[i][1].indexOf('.') + 1);
                         var SM = itemsRoot[i][1].substring(0, itemsRoot[i][1].indexOf("."));
-                        console.log(map.get(SM).valore)
-                        console.log(SM)
+                        //console.log(map.get(SM).valore)
+                        //console.log(SM)
                         if (SM == map.get(SM).valore) {
                             switch (itemsRoot[i][2]) {
                                 case "radio":
@@ -84,17 +91,37 @@
                                         `,GET_VALUE(I.SM_ID, '${valueSM}', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1) AS "${itemsRoot[i][0]}"\n`;
                                     break;
                                 case "numero":
-                                    query += `,SAFE_TO_NUMBER(GET_VALUE(I.SM_ID, '${valueSM}', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1)) AS "${itemsRoot[i][0]} "\n`;
+                                    query +=
+                                        `,SAFE_TO_NUMBER(GET_VALUE(I.SM_ID, '${valueSM}', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1)) AS "${itemsRoot[i][0]} "\n`;
                                     break;
                                 case "data":
-                                    query += `,TO_CHAR(TO_DATE('1970-01-01 00','yyyy-mm-dd hh24') + (GET_VALUE(I.SM_ID, '${valueSM}', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1) + 7200000)/1000/60/60/24 , 'DD/MM/YYYY') AS "${itemsRoot[i][0]}"\n`;
+                                    query +=
+                                        `,TO_CHAR(TO_DATE('1970-01-01 00','yyyy-mm-dd hh24') + (GET_VALUE(I.SM_ID, '${valueSM}', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1) + 7200000)/1000/60/60/24 , 'DD/MM/YYYY') AS "${itemsRoot[i][0]}"\n`;
+                                    break;
+                                case "comunesm":
+                                    comuneSm = true;
+                                    var itemComSm = valueSM;
+                                    query += `,com.ANA_DN AS "${itemsRoot[i][0]}"\n`;
+                                    break;
+                                case "provinciasm":
+                                    provinciaSm = true;
+                                    var itemProvSm = valueSM;
+                                    query += `,prov.ANA_DN AS "${itemsRoot[i][0]}"\n`;
+                                    break;
+                                case "naturasm":
+                                    naturaSm = true;
+                                    var itemNatSm = valueSM;
+                                    query += `,nat.ANA_DN AS "${itemsRoot[i][0]}"\n`;
                                     break;
                                 default:
                                     query += '';
                             }
                         }
                     } else {
+
+                        console.log('itemsRoot[i][2] root ' + itemsRoot[i][2])
                         switch (itemsRoot[i][2]) {
+
                             case "radio":
                                 query += ",GET_VALUE(I.SM_ID, '" + itemsRoot[i][1] + "') AS \"" + (itemsRoot[i][0]) +
                                     "\"\n";
@@ -115,8 +142,22 @@
                                         0
                                     ]) + "\"\n";
                                 break;
+                            case "natura":
+                                naturaRoot = true;
+                                var itemNaturaRoot = itemsRoot[i][1];
+                                query += `,nat.ANA_DN AS "${itemsRoot[i][0]}"\n`;
+                                break;
+                            case "provincia":
+                                provinciaRoot = true;
+                                var itemProvRoot = itemsRoot[i][1];
+                                query += `,prov.ANA_DN AS "${itemsRoot[i][0]}"\n`;
+                                break;
+                            case "comune":
+                                comuneRoot = true;
+                                var itemComRoot = itemsRoot[i][1];
+                                query += `,com.ANA_DN AS "${itemsRoot[i][0]}"\n`;
+                                break;
                             default:
-                                query += '';
                         }
                     }
                 } catch (e) {
@@ -124,11 +165,37 @@
                 }
             }
         }
+        console.log(naturaRoot)
         query += "FROM AG_SM_INSTANCES I\n";
         query += "LEFT JOIN AG_MICROSTATI MIC ON I.SM_TMPL_DN = MIC.STATE_TMPL_DN AND MIC.STATE_ID = I.CURRENT_STATE\n";
         query += "LEFT JOIN AG_MACROSTATI MAC ON MAC.MS_ID = MIC.STATE_MACROSTATO\n";
+        if (naturaRoot) {
+            query += `LEFT JOIN (SELECT ANA_DN, i.sm_id as ID_PRA FROM AG_SM_DATA_ENTRIES D1 \n`
+            query += `LEFT JOIN AG_SM_INSTANCES I ON I.SM_ID = D1.FK_ID  LEFT JOIN AG_ANAGRAFICHE NAT \n`
+            query += `ON D1.DAT_VL=NAT.ANA_CD AND NAT.ANA_TIPO='naturegiuridiche_report' \n`
+            query += `WHERE d1.DAT_PTH = ${itemNaturaRoot} \n`
+            query += `AND I.SM_TMPL_DN = ${nomeTemplate} \n`
+            query += `AND D1.DAT_TMPL_DN =I.SM_TMPL_DN ) nat ON i.sm_id = nat.ID_PRA' \n`
+        }
+        if (provinciaRoot) {
+            query += `LEFT JOIN (SELECT ANA_DN, i.sm_id as ID_PRA FROM AG_SM_DATA_ENTRIES D1 \n`
+            query += `LEFT JOIN AG_SM_INSTANCES I ON I.SM_ID = D1.FK_ID  LEFT JOIN AG_ANAGRAFICHE PROV \n`
+            query += `ON D1.DAT_VL=PROV.ANA_CD AND PROV.ANA_TIPO='provincia_istat' \n`
+            query += `WHERE d1.DAT_PTH = ${itemProvRoot} \n`
+            query += `AND I.SM_TMPL_DN = ${nomeTemplate} \n`
+            query += `AND D1.DAT_TMPL_DN =I.SM_TMPL_DN ) prov ON i.sm_id = prov.ID_PRA' \n`
+        }
+        if (comuneRoot) {
+            query += `LEFT JOIN (SELECT ANA_DN, i.sm_id as ID_PRA FROM AG_SM_DATA_ENTRIES D1 \n`
+            query += `LEFT JOIN AG_SM_INSTANCES I ON I.SM_ID = D1.FK_ID  LEFT JOIN AG_ANAGRAFICHE COM \n`
+            query += `ON D1.DAT_VL=COM.ANA_CD AND COM.ANA_TIPO='comune_istat' \n`
+            query += `WHERE d1.DAT_PTH = ${itemComRoot} \n`
+            query += `AND I.SM_TMPL_DN = ${nomeTemplate} \n`
+            query += `AND D1.DAT_TMPL_DN =I.SM_TMPL_DN ) com ON i.sm_id = com.ID_PRA' \n`
+        }
+
         if (smPresente) {
-            console.log(arrayPulito);
+            //console.log(arrayPulito);
             //console.log(smPresente)
             for (var i in arrayPulito) {
                 var valueSM = arrayPulito[i][0]
@@ -142,12 +209,46 @@
                     query += `and de${i}.dat_idx_l1 = de${i -1}.dat_idx_l1\n`
                     //query += `and de${i}.dat_nm_l1 = de${i - 1}.dat_nm_l1\n`
                 }
+                if (naturaSm) {
+                    query += `LEFT JOIN (SELECT ANA_DN, i.sm_id as ID_PRA \n`
+                    query += `FROM AG_SM_DATA_ENTRIES D${i} \n`
+                    query += `LEFT JOIN AG_SM_INSTANCES I ON I.SM_ID = D${i}.FK_ID  \n`
+                    query += `LEFT JOIN AG_ANAGRAFICHE nat \n`
+                    query += `ON D${i}.DAT_VL=nat.ANA_CD AND nat.ANA_TIPO='naturegiuridiche_report' \n`
+                    query += `WHERE d${i}.DAT_PTH like '${SM}[%].${itemNatSm}' \n`
+                    query += `and I.SM_TMPL_DN = ${nomeTemplate} \n`
+                    query += `AND D${i}.DAT_TMPL_DN =I.SM_TMPL_DN) nat ON i.sm_id = nat.ID_PRA \n`
+
+                }
+                if (provinciaSm) {
+                    query += `LEFT JOIN (SELECT ANA_DN, i.sm_id as ID_PRA \n`
+                    query += `FROM AG_SM_DATA_ENTRIES D${i} \n`
+                    query += `LEFT JOIN AG_SM_INSTANCES I ON I.SM_ID = D${i}.FK_ID  \n`
+                    query += `LEFT JOIN AG_ANAGRAFICHE prov \n`
+                    query += `ON D${i}.DAT_VL=prov.ANA_CD AND prov.ANA_TIPO='provincia_istat' \n`
+                    query += `WHERE d${i}.DAT_PTH like '${SM}[%].${itemProvSm}' \n`
+                    query += `and I.SM_TMPL_DN = ${nomeTemplate} \n`
+                    query += `AND D${i}.DAT_TMPL_DN =I.SM_TMPL_DN) prov ON i.sm_id = prov.ID_PRA \n`
+                }
+
+                if (comuneSm) {
+
+                    query += `LEFT JOIN (SELECT ANA_DN, i.sm_id as ID_PRA \n`
+                    query += `FROM AG_SM_DATA_ENTRIES D${i} \n`
+                    query += `LEFT JOIN AG_SM_INSTANCES I ON I.SM_ID = D${i}.FK_ID  \n`
+                    query += `LEFT JOIN AG_ANAGRAFICHE com \n`
+                    query += `ON D${i}.DAT_VL=com.ANA_CD AND com.ANA_TIPO='comune_istat' \n`
+                    query += `WHERE d${i}.DAT_PTH like '${SM}[%].${itemComSm}' \n`
+                    query += `and I.SM_TMPL_DN = ${nomeTemplate} \n`
+                    query += `AND D${i}.DAT_TMPL_DN =I.SM_TMPL_DN) com ON i.sm_id = com.ID_PRA \n`
+
+                }
 
             }
         }
         query += "WHERE I.SM_TMPL_DN = '" + nomeTemplate + "'\n";
         query += "ORDER BY I.SM_CD ";
-        console.log(query)
+        //console.log(query)
         return query;
     }
 
