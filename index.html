@@ -121,8 +121,9 @@
 
                         console.log('itemsRoot[i][0] root ' + itemsRoot[i][0])
                         console.log('itemsRoot[i][1] root ' + itemsRoot[i][1])
+                        console.log('itemsRoot[i][2] root ' + itemsRoot[i][2])
                         switch (itemsRoot[i][2]) {
-                            console.log('sono nell switch else')
+                    
                             case "radio":
                                 query += ",GET_VALUE(I.SM_ID, '" + itemsRoot[i][1] + "') AS \"" + (itemsRoot[i][0]) +
                                     "\"\n";
