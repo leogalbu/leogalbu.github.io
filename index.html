@@ -81,7 +81,7 @@
                         //console.log(map.get(SM).valore)
                         //console.log(SM)
                         if (SM == map.get(SM).valore) {
-                            switch (itemsRoot[i][2]) {
+                            switch (itemsRoot[i][1]) {
                                 case "radio":
                                     query +=
                                         `,GET_VALUE(I.SM_ID, '${valueSM}', de${mapIndiciFiltered.get(SM).indice}.dat_idx_l1, de${mapIndiciFiltered.get(SM).indice}.dat_nm_l1) AS "${itemsRoot[i][0]}"\n`;
@@ -122,7 +122,7 @@
                         console.log('itemsRoot[i][0] root ' + itemsRoot[i][0])
                         console.log('itemsRoot[i][1] root ' + itemsRoot[i][1])
                         console.log('itemsRoot[i][2] root ' + itemsRoot[i][2])
-                        switch (itemsRoot[i][2]) {
+                        switch (itemsRoot[i][1]) {
                     
                             case "radio":
                                 query += ",GET_VALUE(I.SM_ID, '" + itemsRoot[i][1] + "') AS \"" + (itemsRoot[i][0]) +
